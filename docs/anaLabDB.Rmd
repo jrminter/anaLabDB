@@ -1,0 +1,53 @@
+---
+title: "Using the anaLabDB"
+author: "J. R. Minter"
+date: "Started: 2017-11-02, Last Modified: 2017-11-02"
+abstract: |
+  anaLabDB is planned to be a simple SQLite3 database for analysts to
+  manage specimens and projects.  This is a work-in-progress at a very
+  early stage. 
+
+output:
+  html_document:
+    csl: ./inc/american-chemical-society-with-titles-sentence-case-doi.csl
+    css: ./inc/jm-gray-vignette.css
+    toc: true
+    number_sections: yes
+bibliography: ./inc/anaLabDB.bib
+---
+
+```{r, echo=FALSE, message=FALSE}
+library(png)
+library(grid)
+library(rEDS)
+library(pander)
+```
+
+# Do this first
+
+Using this package requires installation of SQLite3 and Python.
+I highly recomment SQLiteStudio 3.1.1. I like the Anaconda python
+distrbution. I prefere the lightweight minconda installer.
+
+The first python scripts use an environment variable, `ANA_DB_DIR`.
+This is the root directory for databases. I have this set to 
+`D:/Data/db` on my development system. Note Windows will accept
+forward slashes for path spacers. Perhaps Bill Gates should have
+studied a bit more. Why would anyone use a backslash for a spacer
+when that is the escape character in many languages????
+
+I made some test .csv files for generating the database from backup
+.csv files. These are in the `./test-data/csv` directory of the git
+repository. Copy them into the production or test instance directories
+mentioned in the script.
+
+
+# Current status
+
+Currently there are two scripts working. The
+`create-anaLabDB-from-csv.py` script will run from the `./tools/py`
+folder of the git repository. The `fix-anaLabDB-after-csv-import.sql`
+script in the `./tools/sql` folder of the repository needs to be copied
+to the folder with the `anaLabDB.db` file and run from the command line
+from sqlite3.
+
