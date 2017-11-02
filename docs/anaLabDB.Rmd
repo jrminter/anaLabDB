@@ -26,8 +26,8 @@ library(pander)
 # Do this first
 
 Using this package requires installation of SQLite3 and Python.
-I highly recomment SQLiteStudio 3.1.1. I like the Anaconda python
-distrbution. I prefere the lightweight minconda installer.
+I highly recommend SQLiteStudio 3.1.1. I like the Anaconda python
+distribution. I prefer the lightweight minconda installer.
 
 The first python scripts use an environment variable, `ANA_DB_DIR`.
 This is the root directory for databases. I have this set to 
