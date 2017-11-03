@@ -220,8 +220,18 @@ class App:
 		
 		# pull in last data
 		self.ReadLast()
-		
+
+	def isDebugChecked(self):
+		val = self.mVerbose.get()
+		if val > 0:
+			return(True)
+		else:
+			return(False)
+
+
 	def log_in(self):
+
+		bDebug = self.isDebugChecked()
 		# see
 		# http://dev.mysql.com/doc/connector-python/en/myconnpy_tutorial_CursorBuffered_GiveRaise.html
 		cnx = sqlite3.connect(anaLabDB)
@@ -232,7 +242,7 @@ class App:
 			if x == None: break
 			nCount = int(x[0])
 
-			if(self.mVerbose):
+			if(bDebug):
 				print(nCount)
 
 			strLabID = self.mStart + str(self.mOffset + nCount + 1)
@@ -249,13 +259,13 @@ class App:
 					  self.mAnalyst_ID.get(),
 					  self.mHours.get()
 					)
-			if(self.mVerbose):
+			if(bDebug):
 				print(query)
 			cursor = cnx.cursor()
 			cursor.execute(query)
 			cursor.execute("commit;")
 
-			if(self.mVerbose):
+			if(bDebug):
 				print(query)
 			cursor.close()
 			cursor = cnx.cursor()
@@ -275,14 +285,15 @@ class App:
 		cursor.close()
 		cnx.close()
 		self.write_last()
-		if(self.mVerbose):
+		if(bDebug):
 			print(strCheck)
 
 	def log_out(self):
+		bDebug = self.isDebugChecked()
 		# strCheck = "SELECT * FROM samples WHERE LAB_ID = '%s'"
 		# self.mLabID.get()
 		query = queryAllSamplesLabIDString % (self.mLabID.get())
-		if(self.mVerbose):
+		if(bDebug):
 			print("Logout: Query All samples with Log ID")
 			print(query)
 
@@ -292,18 +303,18 @@ class App:
 		cursor.execute(query)
 		for x in cursor:
 		# Iterate through all samples with the same LAB_ID 
-			if(self.mVerbose):
+			if(bDebug):
 				print(x[1])
 			query = logOutSampleWithLabIDString % (self.mDate_Out.get(),
 												   self.mLabID.get())
-			if(self.mVerbose):
+			if(bDebug):
 				print("logOutSampleWithLab Query")
 				print(query)
 			cur = cnx.cursor()
 			cur.execute(query)
 
 			query = loggedOutSamplesWithLabIDString % (self.mLabID.get())
-			if(self.mVerbose):
+			if(bDebug):
 				print("loggedOutSamplesWithLabID")
 				print(query)
 			cur.execute(query)
@@ -316,6 +327,7 @@ class App:
 		cnx.close()
 
 	def update_sample(self):
+		bDebug = self.isDebugChecked()
 		query = updateSampleQueryString % (
 			self.mClient_Sample_ID.get(),
 			self.mSample_Info.get(),
@@ -328,7 +340,7 @@ class App:
 			self.mHours.get(),
 			self.mLabID.get()
 			)
-		if(self.mVerbose):
+		if(bDebug):
 			print("Update Sample Query")
 			print(query)
 		cnx = sqlite3.connect(anaLabDB)
@@ -340,19 +352,23 @@ class App:
 		strMsg = str("Updated Lab ID " + self.mLabID.get())
 		self.mMessage.set(strMsg)
 		self.write_last()
+
+
 	def query_db(self):
+
+		bDebug = self.isDebugChecked()
 
 		cnx = sqlite3.connect(anaLabDB)
 		cursor = cnx.cursor()
 
 		query = queryAllSamplesLabIDString % (self.mLabID.get())
-		if(self.mVerbose):
+		if(bDebug):
 			print("Logout: Query All samples with Log ID")
 			print(query)
 		
 		cursor.execute(query)
 
-		if(self.mVerbose):
+		if(bDebug):
 			for x in cursor:
 				print(x[0])
 				print(x[1])
@@ -366,19 +382,18 @@ class App:
 				print(x[9])
 				print(x[10])
 
-		else:
-			for x in cursor:
-				self.manaLabDBKey.set(x[0])
-				self.mLabID.set(x[1])
-				self.mClient_Sample_ID.set(x[2])
-				self.mSample_Info.set(x[3])
-				self.mDate_In.set(x[4])
-				self.mDate_Out.set(x[5])
-				self.mProject_ID.set(x[6])
-				self.mJob_ID.set(x[7])
-				self.mClient_ID.set(x[8])
-				self.mAnalyst_ID.set(x[9])
-				self.mHours.set(x[10])
+		for x in cursor:
+			self.manaLabDBKey.set(x[0])
+			self.mLabID.set(x[1])
+			self.mClient_Sample_ID.set(x[2])
+			self.mSample_Info.set(x[3])
+			self.mDate_In.set(x[4])
+			self.mDate_Out.set(x[5])
+			self.mProject_ID.set(x[6])
+			self.mJob_ID.set(x[7])
+			self.mClient_ID.set(x[8])
+			self.mAnalyst_ID.set(x[9])
+			self.mHours.set(x[10])
 		cursor.close()
 		cnx.close()
 
