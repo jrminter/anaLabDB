@@ -89,8 +89,9 @@ class App:
 		# define the variables
 		self.mVerbose = IntVar()
 		# variables changed from year-to-year
-		# nOffset = 5100 for 2017  for MIDB, This test uses 1001
-		self.mOffset = 1001
+		# nOffset = 5100 for 2017  for MIDB, 
+		# The toy data set uses an offset 1000
+		self.mOffset = 1000
 		# If one deletes a record from the database, things get
 		# messed up. Increment this by one. Zero when you redo the
 		# database each year...
