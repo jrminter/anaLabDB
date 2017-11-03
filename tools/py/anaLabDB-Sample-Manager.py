@@ -12,7 +12,10 @@ J. R. Minter
 
    Date	 Version					 Comments
 ----------  -------  ---------------------------------------------------
-2017-11-03   0.18.0  Port to sqlite3
+2017-11-03   0.1.00  Port to sqlite3 and better handling of the query
+                     strings. To Do: need to move database calls into
+                     functions or perhaps a package. drop down menus
+                     would be helpful.
 """
 
 from tkinter import *
@@ -249,15 +252,15 @@ class App:
 			self.mLabID.set(strLabID)
 
 			query = insertSampleQueryString % ( self.mLabID.get(),
-					  self.mClient_Sample_ID.get(),
-					  self.mSample_Info.get(),
-					  self.mDate_In.get(),
-					  self.mDate_Out.get(),
-					  self.mProject_ID.get(),
-					  self.mJob_ID.get(),
-					  self.mClient_ID.get(),
-					  self.mAnalyst_ID.get(),
-					  self.mHours.get()
+						self.mClient_Sample_ID.get(),
+						self.mSample_Info.get(),
+						self.mDate_In.get(),
+						self.mDate_Out.get(),
+						self.mProject_ID.get(),
+						self.mJob_ID.get(),
+						self.mClient_ID.get(),
+						self.mAnalyst_ID.get(),
+					 	self.mHours.get()
 					)
 			if(bDebug):
 				print(query)
@@ -400,7 +403,9 @@ class App:
 
 
 	def write_file(self):
-		strOutFile = fd.asksaveasfilename(initialdir='/data/anaLabDB/', filetypes= [("ini files", "*.ini")])
+		strOutFile = fd.asksaveasfilename(initialdir='/data/anaLabDB/',
+										  filetypes= [("ini files",
+													   "*.ini")])
 		if strOutFile == "": return
 		config = configparser.ConfigParser()
 		config.add_section('LAST')
@@ -436,7 +441,9 @@ class App:
 
 	def read_file(self):
 		self.mMessage.set("")
-		strInFile = fd.askopenfilename(initialdir='/data/anaLabDB', filetypes= [("ini files", "*.ini")])
+		strInFile = fd.askopenfilename(initialdir='/data/anaLabDB',
+									   filetypes= [("ini files",
+													"*.ini")])
 		if strInFile == "": return
 		config = configparser.ConfigParser()
 		config.read(strInFile)
