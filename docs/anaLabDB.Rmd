@@ -1,7 +1,7 @@
 ---
 title: "Using the anaLabDB"
 author: "J. R. Minter"
-date: "Started: 2017-11-02, Last Modified: 2017-11-02"
+date: "Started: 2017-11-02, Last Modified: 2017-11-03"
 abstract: |
   anaLabDB is planned to be a simple SQLite3 database for analysts to
   manage specimens and projects.  This is a work-in-progress at a very
@@ -50,4 +50,16 @@ folder of the git repository. The `fix-anaLabDB-after-csv-import.sql`
 script in the `./tools/sql` folder of the repository needs to be copied
 to the folder with the `anaLabDB.db` file and run from the command line
 from sqlite3.
+
+I have a basic Tk dialog that works. Currently, One needs to enter all
+the values. I can envision drop-down menus for project number, job number,
+the client and the client ID.  There is a prototype of such a menu
+[here](https://pythonspot.com/en/tk-dropdown-example/).
+
+My biggest concern is that it takes a lot of code to do this and I'm
+not sure of the best way to break it into bite-size, understandable
+code. What I have now is better than where I started, but is hard for
+me to troubleshoot...
+
+
 
