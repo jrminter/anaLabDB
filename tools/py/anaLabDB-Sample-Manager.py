@@ -34,6 +34,7 @@ instance = "anaLabDBtest"
 dbRoot = os.getenv("ANA_DB_DIR")
 wrkDir = dbRoot + '/' + instance
 anaLabDB = wrkDir + '/anaLabDB.db'
+iniDir = wrkDir + '/ini'
 
 
 # Update samples query string
@@ -54,7 +55,7 @@ getNumSamplesQueryString = "SELECT count(*) FROM samples"
 
 insertSampleQueryString = """
 INSERT INTO
-samples (Sample_ID, Lab_ID, Client_Sample_ID,
+samples (ID, Lab_ID, Client_Sample_ID,
 		 Sample_Info, Date_In, Date_Out, Project_ID,
 		 Job_ID, Submitter_ID, Analyst_ID, Hours)
 VALUES (NULL, '%s', '%s',
@@ -403,7 +404,7 @@ class App:
 
 
 	def write_file(self):
-		strOutFile = fd.asksaveasfilename(initialdir='/data/anaLabDB/',
+		strOutFile = fd.asksaveasfilename(initialdir=iniDir,
 										  filetypes= [("ini files",
 													   "*.ini")])
 		if strOutFile == "": return
@@ -441,7 +442,7 @@ class App:
 
 	def read_file(self):
 		self.mMessage.set("")
-		strInFile = fd.askopenfilename(initialdir='/data/anaLabDB',
+		strInFile = fd.askopenfilename(initialdir=iniDir,
 									   filetypes= [("ini files",
 													"*.ini")])
 		if strInFile == "": return
@@ -460,7 +461,7 @@ class App:
 
 	def ReadLast(self):
 		self.mMessage.set("")
-		strFile = '/data/anaLabDB/last_sample.ini'
+		strFile = iniDir + '/last_sample.ini'
 		config = configparser.ConfigParser()
 		config.read(strFile)
 		self.manaLabDBKey.set(config['LAST']['manaLabDBKey'])
@@ -477,7 +478,7 @@ class App:
 		
 	
 root = Tk()
-root.title('anaLabDB Sqlite3 Sample Manager v. 0.1.0')
+root.title('anaLabDB Sqlite3 Sample Manager v. 0.2.0')
 app = App(root)
 
 root.mainloop()
