@@ -1,6 +1,7 @@
 -- fix-anaLabDB-after-csv-import.sql
 --
 -- 2017-11-02  J. R. Minter
+-- 2017-11-04 Change to simpler column names
 --
 -- Run from the command line with:
 -- sqlite3 anaLabDB.db < fix-anaLabDB-after-csv-import.sql
@@ -14,7 +15,7 @@ CREATE TABLE sqlitestudio_temp_table AS SELECT *
 DROP TABLE samples;
 
 CREATE TABLE samples (
-    Sample_ID        INTEGER PRIMARY KEY AUTOINCREMENT,
+    ID        INTEGER PRIMARY KEY AUTOINCREMENT,
     Lab_ID           TEXT,
     Client_Sample_ID TEXT,
     Sample_Info      TEXT,
@@ -28,7 +29,7 @@ CREATE TABLE samples (
 );
 
 INSERT INTO samples (
-                        Sample_ID,
+                        ID,
                         Lab_ID,
                         Client_Sample_ID,
                         Sample_Info,
@@ -40,7 +41,7 @@ INSERT INTO samples (
                         Analyst_ID,
                         Hours
                     )
-                    SELECT Sample_ID,
+                    SELECT ID,
                            Lab_ID,
                            Client_Sample_ID,
                            Sample_Info,
@@ -67,28 +68,28 @@ CREATE TABLE sqlitestudio_temp_table AS SELECT *
 DROP TABLE projects;
 
 CREATE TABLE projects (
-    Proj_ID           INTEGER PRIMARY KEY AUTOINCREMENT,
-    Project_Code      TEXT,
-    Project_Name      TEXT,
+    ID                INTEGER PRIMARY KEY AUTOINCREMENT,
+    Code      TEXT,
+    Name      TEXT,
     Charge_No         TEXT,
-    Principal_Sci_ID  TEXT,
-    Project_Objective TEXT
+    Manager_ID  TEXT,
+    Objective TEXT
 );
 
 INSERT INTO projects (
-                         Proj_ID,
-                         Project_Code,
-                         Project_Name,
+                         ID,
+                         Code,
+                         Name,
                          Charge_No,
-                         Principal_Sci_ID,
-                         Project_Objective
+                         Manager_ID,
+                         Objective
                      )
-                     SELECT Proj_ID,
-                            Project_Code,
-                            Project_Name,
+                     SELECT ID,
+                            Code,
+                            Name,
                             Charge_No,
-                            Principal_Sci_ID,
-                            Project_Objective
+                            Manager_ID,
+                            Objective
                        FROM sqlitestudio_temp_table;
 
 DROP TABLE sqlitestudio_temp_table;
@@ -98,30 +99,30 @@ PRAGMA foreign_keys = 1;
 PRAGMA foreign_keys = 0;
 
 CREATE TABLE sqlitestudio_temp_table AS SELECT *
-                                          FROM scientists;
+                                          FROM people;
 
-DROP TABLE scientists;
+DROP TABLE people;
 
-CREATE TABLE scientists (
-    Scientist_ID   INTEGER PRIMARY KEY,
-    Scientist_Name TEXT,
+CREATE TABLE people (
+    ID   INTEGER PRIMARY KEY,
+    Name TEXT,
     Local_ID       TEXT,
-    Local_Address  TEXT,
-    Local_Phone    TEXT
+    Address  TEXT,
+    Phone    TEXT
 );
 
-INSERT INTO scientists (
-                           Scientist_ID,
-                           Scientist_Name,
+INSERT INTO people (
+                           ID,
+                           Name,
                            Local_ID,
-                           Local_Address,
-                           Local_Phone
+                           Address,
+                           Phone
                        )
-                       SELECT Scientist_ID,
-                              Scientist_Name,
+                       SELECT ID,
+                              Name,
                               Local_ID,
-                              Local_Address,
-                              Local_Phone
+                              Address,
+                              Phone
                          FROM sqlitestudio_temp_table;
 
 DROP TABLE sqlitestudio_temp_table;
