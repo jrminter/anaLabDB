@@ -1,11 +1,11 @@
 ---
-title: "Using the anaLabDB"
+title: "Using the anaLabDB System"
 author: "J. R. Minter"
-date: "Started: 2017-11-02, Last Modified: 2017-11-03"
+date: "Started: 2017-11-02, Last Modified: 2017-11-04"
 abstract: |
   anaLabDB is planned to be a simple SQLite3 database for analysts to
   manage specimens and projects.  This is a work-in-progress at a very
-  early stage. 
+  early stage. This version describes the `table-names` branch.
 
 output:
   html_document:
@@ -60,6 +60,29 @@ My biggest concern is that it takes a lot of code to do this and I'm
 not sure of the best way to break it into bite-size, understandable
 code. What I have now is better than where I started, but is hard for
 me to troubleshoot...
+
+# The `table-names` branch
+
+I am working with a branch: `table-names` where I tried to clean up 
+the names of the database a bit. I also moved the `ini` dir into the 
+`ANA_DB_DIR` path tree...
+
+The schema from **SQLiteStudio (3.3.1)** now looks like this:
+
+![Note the `scientists` table was renamed to `people`](./png/people-table.png)
+
+![The `people` table schema ](./png/people-table-schema.png)
+
+![The `projects` table was simplified](./png/projects-table.png)
+
+![The `projects` table schema](./png/projects-table-schema.png)
+
+![The `samples` table was simplified where it made sense](./png/sample-table.png)
+
+![The `samples` table schema](./png/sample-table-schema.png)
+
+
+
 
 
 
