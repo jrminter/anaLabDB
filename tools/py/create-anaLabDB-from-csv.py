@@ -22,8 +22,8 @@ import sqlite3
 import pandas
 import os
 
-instance = "anaLabDBprod"
-# instance = "anaLabDBtest"
+# instance = "anaLabDBprod"
+instance = "anaLabDBtest"
 
 dbRoot = os.getenv("ANA_DB_DIR")
 wrkDir = dbRoot + '/' + instance
@@ -44,9 +44,9 @@ df = pandas.read_csv(csvFil)
 print(df.tail())
 df.to_sql('projects', con, if_exists='replace', index=False)
 
-csvFil = wrkDir + '/csv/scientists.csv'
+csvFil = wrkDir + '/csv/people.csv'
 df = pandas.read_csv(csvFil)
 print(df.tail())
-df.to_sql('scientists', con, if_exists='replace', index=False)
+df.to_sql('people', con, if_exists='replace', index=False)
 
 con.close()

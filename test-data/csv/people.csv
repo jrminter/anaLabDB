@@ -1,4 +1,4 @@
-Scientist_ID,Scientist_Name,Local_ID,Local_Address,Local_Phone
+ID,Name,Local_ID,Address,Phone
 1,"Wolfman, The",123456,123 The Lair,123-456-7890
 2,"Dracula, Vlad",123457,124 The Lair,123-456-7891
 3,"Messy, Mike",123458,100 The Lair,123-456-7892
