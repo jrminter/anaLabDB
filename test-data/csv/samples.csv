@@ -1,4 +1,4 @@
-Sample_ID,Lab_ID,Client_Sample_ID,Sample_Info,Date_In,Date_Out,Project_ID,Job_ID,Submitter_ID,Analyst_ID,Hours
+ID,Lab_ID,Client_Sample_ID,Sample_Info,Date_In,Date_Out,Project_ID,Job_ID,Submitter_ID,Analyst_ID,Hours
 1,qm-01001,TWM-41,Control. No C. Embed. 0.25 um sect. PTA-stain and unstained. C-ctd. -A1,2017-01-03,2017-01-05,QM17-01,QM17-01-01A,123456,123000,2
 2,qm-01002,DRA-2016-290A,PEO on PS. 40 sec Au/Pd TR. -A1,2017-01-03,2017-01-06,QM17-01,QM17-01-02,123457,123000,4
 3,qm-01003,DRA-2016-290B,Bulk PS. 40 sec Au/Pd TR. -A1,2017-01-03,2017-01-06,QM17-02,QM17-02-01,123457,123000,4

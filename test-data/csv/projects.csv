@@ -1,4 +1,4 @@
-Proj_ID,Project_Code,Project_Name,Charge_No,Principal_Sci_ID,Project_Objective
+ID,Code,Name,Charge_No,Manager_ID,Objective
 1,QM17-01,Wolf Analysis,1002,123456,Analyze wolves
 2,QM17-02,Blood Thinners,1003,123457,Analyze blood thinners
 3,QM17-03,Debris Analysis,1004,123459,Package printing

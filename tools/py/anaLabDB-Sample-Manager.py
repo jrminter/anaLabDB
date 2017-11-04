@@ -41,10 +41,15 @@ iniDir = wrkDir + '/ini'
 
 updateSampleQueryString = """
 UPDATE samples
-SET Client_Sample_ID = '%s', Sample_Info = '%s',
-Date_In = '%s', Date_Out = '%s', Project_ID = '%s',
-Job_ID = '%s', Submitter_ID = '%s',
-Analyst_ID = '%s', Hours = '%s'
+SET Client_Sample_ID = '%s',
+Sample_Info = '%s',
+Date_In = '%s',
+Date_Out = '%s',
+Project_ID = '%s',
+Job_ID = '%s',
+Submitter_ID = '%s',
+Analyst_ID = '%s',
+Hours = '%s'
 WHERE LAB_ID='%s';
 """
 
@@ -104,7 +109,7 @@ class App:
 		self.manaLabDBKey = StringVar()
 		self.mLabID = StringVar()
 		self.mAnalyst_ID = StringVar()
-		self.mClient_ID = StringVar()
+		self.mSubmitter_ID = StringVar()
 		self.mProject_ID = StringVar()
 		self.mJob_ID = StringVar()
 		self.mClient_Sample_ID = StringVar()
@@ -152,7 +157,7 @@ class App:
 
 		self.lab5 = Label(f, text='Client ID')
 		self.lab5.pack(side = TOP, pady=1)
-		self.ClientIdBox = Entry(f,textvariable=self.mClient_ID,
+		self.ClientIdBox = Entry(f,textvariable=self.mSubmitter_ID,
 			width=12)
 		self.ClientIdBox.pack(side= TOP,padx=10,pady=2)
 			
@@ -259,7 +264,7 @@ class App:
 						self.mDate_Out.get(),
 						self.mProject_ID.get(),
 						self.mJob_ID.get(),
-						self.mClient_ID.get(),
+						self.mSubmitter_ID.get(),
 						self.mAnalyst_ID.get(),
 					 	self.mHours.get()
 					)
@@ -336,17 +341,16 @@ class App:
 			self.mClient_Sample_ID.get(),
 			self.mSample_Info.get(),
 			self.mDate_In.get(),
+            self.mDate_Out.get(),
 			self.mProject_ID.get(),
 			self.mJob_ID.get(),
-			self.mClient_ID.get(),
+			self.mSubmitter_ID.get(),
 			self.mAnalyst_ID.get(),
-			self.mLabID.get(),
 			self.mHours.get(),
 			self.mLabID.get()
 			)
-		if(bDebug):
-			print("Update Sample Query")
-			print(query)
+		print("Update Sample Query")
+		print(query)
 		cnx = sqlite3.connect(anaLabDB)
 		cursor = cnx.cursor()
 		cursor.execute(query)
@@ -372,6 +376,8 @@ class App:
 		
 		cursor.execute(query)
 
+
+		iVal = 0
 		if(bDebug):
 			for x in cursor:
 				print(x[0])
@@ -385,8 +391,9 @@ class App:
 				print(x[8])
 				print(x[9])
 				print(x[10])
-
+			
 		for x in cursor:
+			iVal += 1
 			self.manaLabDBKey.set(x[0])
 			self.mLabID.set(x[1])
 			self.mClient_Sample_ID.set(x[2])
@@ -395,9 +402,13 @@ class App:
 			self.mDate_Out.set(x[5])
 			self.mProject_ID.set(x[6])
 			self.mJob_ID.set(x[7])
-			self.mClient_ID.set(x[8])
+			self.mSubmitter_ID.set(x[8])
 			self.mAnalyst_ID.set(x[9])
 			self.mHours.set(x[10])
+			strMsg = "Queried sample %s" % (self.mLabID.get())
+			self.mMessage.set(strMsg)
+		if (iVal < 1):
+			self.mMessage.set("No results returned...")
 		cursor.close()
 		cnx.close()
 
@@ -418,7 +429,7 @@ class App:
 		config['LAST']['mDate_Out'] = self.mDate_Out.get()
 		config['LAST']['mProject_ID'] = self.mProject_ID.get()
 		config['LAST']['mJob_ID'] = self.mJob_ID.get()
-		config['LAST']['mClient_ID'] = self.mClient_ID.get()
+		config['LAST']['mSubmitter_ID'] = self.mSubmitter_ID.get()
 		config['LAST']['mAnalyst_ID'] = self.mAnalyst_ID.get()
 		with open(strOutFile, 'w') as configfile:		# save
 			config.write(configfile)
@@ -435,7 +446,7 @@ class App:
 		config['LAST']['mDate_Out'] = self.mDate_Out.get()
 		config['LAST']['mProject_ID'] = self.mProject_ID.get()
 		config['LAST']['mJob_ID'] = self.mJob_ID.get()
-		config['LAST']['mClient_ID'] = self.mClient_ID.get()
+		config['LAST']['mSubmitter_ID'] = self.mSubmitter_ID.get()
 		config['LAST']['mAnalyst_ID'] = self.mAnalyst_ID.get()
 		with open(strFile, 'w') as configfile:		# save
 			config.write(configfile)
@@ -456,7 +467,7 @@ class App:
 		self.mDate_Out.set(config['LAST']['mDate_Out'])
 		self.mProject_ID.set(config['LAST']['mProject_ID'])
 		self.mJob_ID.set(config['LAST']['mJob_ID'])
-		self.mClient_ID.set(config['LAST']['mClient_ID'])
+		self.mSubmitter_ID.set(config['LAST']['mSubmitter_ID'])
 		self.mAnalyst_ID.set(config['LAST']['mAnalyst_ID'])
 
 	def ReadLast(self):
@@ -472,7 +483,7 @@ class App:
 		self.mDate_Out.set(config['LAST']['mDate_Out'])
 		self.mProject_ID.set(config['LAST']['mProject_ID'])
 		self.mJob_ID.set(config['LAST']['mJob_ID'])
-		self.mClient_ID.set(config['LAST']['mClient_ID'])
+		self.mSubmitter_ID.set(config['LAST']['mSubmitter_ID'])
 		self.mAnalyst_ID.set(config['LAST']['mAnalyst_ID'])
 		
 		

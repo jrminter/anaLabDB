@@ -106,7 +106,7 @@ DROP TABLE people;
 CREATE TABLE people (
     ID   INTEGER PRIMARY KEY,
     Name TEXT,
-    Local_ID       TEXT,
+    Local_ID  TEXT,
     Address  TEXT,
     Phone    TEXT
 );
