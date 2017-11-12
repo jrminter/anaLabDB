@@ -81,6 +81,15 @@ The schema from **SQLiteStudio (3.3.1)** now looks like this:
 
 ![The `samples` table schema](./png/sample-table-schema.png)
 
+# A dump script
+
+For example, to dump a production database, try a script like this:
+
+```
+cd $ANA_DB_DIR/anaLabDBprod;
+   sqlite3 anaLabDB.db .dump | 
+   gzip -c >anaLabDBprod.dump.gz
+```
 
 
 
