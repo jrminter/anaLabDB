@@ -1,7 +1,8 @@
 -- fix-anaLabDB-after-csv-import.sql
 --
 -- 2017-11-02  J. R. Minter
--- 2017-11-04 Change to simpler column names
+-- 2017-11-04  Change to simpler column names
+-- 2017-11-19  Use some ideas from SQLiteStudio manual setup...
 --
 -- Run from the command line with:
 -- sqlite3 anaLabDB.db < fix-anaLabDB-after-csv-import.sql
@@ -15,7 +16,8 @@ CREATE TABLE sqlitestudio_temp_table AS SELECT *
 DROP TABLE samples;
 
 CREATE TABLE samples (
-    ID        INTEGER PRIMARY KEY AUTOINCREMENT,
+    ID              [INT AUTO_INCREMENT] PRIMARY KEY
+                     UNIQUE ON CONFLICT IGNORE,
     Lab_ID           TEXT,
     Client_Sample_ID TEXT,
     Sample_Info      TEXT,
@@ -68,7 +70,8 @@ CREATE TABLE sqlitestudio_temp_table AS SELECT *
 DROP TABLE projects;
 
 CREATE TABLE projects (
-    ID                INTEGER PRIMARY KEY AUTOINCREMENT,
+    ID       [INT AUTO_INCREMENT] PRIMARY KEY
+              UNIQUE ON CONFLICT IGNORE,
     Code      TEXT,
     Name      TEXT,
     Charge_No         TEXT,
@@ -104,11 +107,12 @@ CREATE TABLE sqlitestudio_temp_table AS SELECT *
 DROP TABLE people;
 
 CREATE TABLE people (
-    ID   INTEGER PRIMARY KEY,
-    Name TEXT,
+    ID        [INT AUTO_INCREMENT] PRIMARY KEY
+              UNIQUE ON CONFLICT IGNORE,
+    Name      TEXT,
     Local_ID  TEXT,
-    Address  TEXT,
-    Phone    TEXT
+    Address   TEXT,
+    Phone     TEXT
 );
 
 INSERT INTO people (
